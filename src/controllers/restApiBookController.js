@@ -37,7 +37,8 @@ const getBookById = async (req, res) => {
 
 const updateBook = async (req, res) => {
     try {
-        const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const { author, title } = req.body;
+        const book = await Book.findByIdAndUpdate(req.params.id, { author: author, title: title }, { new: true });
         if (book) {
             res.json(book);
         } else {

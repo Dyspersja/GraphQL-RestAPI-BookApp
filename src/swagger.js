@@ -8,7 +8,7 @@ const doc = {
   host: 'localhost:8000'
 };
 
-const outputFile = './swagger-output.json';
-const routes = ['./routes/bookRoutes.js'];
+const outputFile = '../swagger-api.json';
+const endpointFiles = ['./app.js'];
 
-swaggerAutogen(outputFile, routes, doc);
+swaggerAutogen(outputFile, endpointFiles, doc);
