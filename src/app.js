@@ -6,7 +6,7 @@ const restApiBookRoutes = require('./routes/restApiBookRoutes');
 const graphqlBookRoutes = require('./routes/graphqlBookRoutes');
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger-output.json');
+const swaggerDocument = require('../swagger-output.json');
 
 const app = express();
 
