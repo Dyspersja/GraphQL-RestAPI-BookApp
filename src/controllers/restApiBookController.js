@@ -1,8 +1,8 @@
-const Book = require('../models/bookModel');
+const BooksDB = require('../database');
 
 const getAllBooks = async (req, res) => {
     try {
-        const books = await Book.find();
+        const books = await BooksDB.getAllBooks();
         res.json(books);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -10,21 +10,18 @@ const getAllBooks = async (req, res) => {
 };
 
 const createBook = async (req, res) => {
-    const book = new Book({
-        title: req.body.title,
-        author: req.body.author
-    });
+    const { author, title } = req.body;
     try {
-        const newBook = await book.save();
+        const newBook = await BooksDB.createBook({ author: author, title: title });
         res.status(201).json(newBook);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
-}
+};
 
 const getBookById = async (req, res) => {
     try {
-        const book = await Book.findById(req.params.id);
+        const book = await BooksDB.getBookById(req.params.id);
         if (book) {
             res.json(book);
         } else {
@@ -33,12 +30,12 @@ const getBookById = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}
+};
 
 const updateBook = async (req, res) => {
     try {
         const { author, title } = req.body;
-        const book = await Book.findByIdAndUpdate(req.params.id, { author: author, title: title }, { new: true });
+        const book = await BooksDB.updateBook(req.params.id, { author: author, title: title });
         if (book) {
             res.json(book);
         } else {
@@ -47,11 +44,11 @@ const updateBook = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}
+};
 
 const deleteBook = async (req, res) => {
     try {
-        const book = await Book.findByIdAndDelete(req.params.id);
+        const book = await BooksDB.deleteBook(req.params.id);
         if (book) {
             res.status(204).json({ message: 'Book deleted' });
         } else {
@@ -60,6 +57,6 @@ const deleteBook = async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-}
+};
 
 module.exports = { getAllBooks, createBook, getBookById, updateBook, deleteBook };

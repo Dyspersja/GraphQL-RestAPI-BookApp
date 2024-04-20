@@ -1,4 +1,4 @@
-const Book = require('../models/bookModel');
+const BooksDB = require('../database');
 var { 
     GraphQLSchema, 
     GraphQLObjectType, 
@@ -29,7 +29,7 @@ const BookType = new GraphQLObjectType({
 
 const QueryResolvers = {
     getBook: async (parent, {id}) => {
-        const book = await Book.findById(id);
+        const book = await BooksDB.getBookById(id);
         if (book) {
             return book;
         } else {
@@ -38,19 +38,15 @@ const QueryResolvers = {
     },
 
     getBooks: async (parent, args) => {
-        const books = await Book.find();
+        const books = await BooksDB.getAllBooks();
         return books;
     }
 };
 
 const MutationResolvers = {
     createBook: async (parent, {input}) => {
-        const book = new Book({
-            title: input.title,
-            author: input.author
-        });
         try {
-            const newBook = await book.save();
+            const newBook = await BooksDB.createBook(input);
             return newBook;
         } catch (err) {
             throw new Error({ message: err.message });
@@ -59,7 +55,7 @@ const MutationResolvers = {
     
     updateBook: async (parent, {id, input}) => {
         try {
-            const book = await Book.findByIdAndUpdate(id, input, { new: true });
+            const book = await BooksDB.updateBook(id, input);
             if (book) {
                 return book;
             } else {
@@ -72,7 +68,7 @@ const MutationResolvers = {
 
     deleteBook: async (parent, {id}) => {
         try {
-            const book = await Book.findByIdAndDelete(id);
+            const book = await BooksDB.deleteBook(id);
             if (book) {
                 return true;
             } else {

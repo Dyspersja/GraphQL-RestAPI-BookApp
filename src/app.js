@@ -1,6 +1,5 @@
 const http = require('http');
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const restApiBookRoutes = require('./routes/restApiBookRoutes');
 const graphqlBookRoutes = require('./routes/graphqlBookRoutes');
@@ -10,16 +9,10 @@ const swaggerDocument = require('../swagger-api.json');
 
 const app = express();
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const booksDB = 'mongodb://localhost/books_db';
-mongoose.connect(booksDB, {useNewUrlParser: true, useUnifiedTopology: true});
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/books', restApiBookRoutes);
 app.use('/graphql/ui', graphqlBookRoutes.ui);
 app.use('/graphql', graphqlBookRoutes.handler);
