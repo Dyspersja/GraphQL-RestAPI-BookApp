@@ -22,7 +22,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use('/', restApiBookRoutes);
 app.get('/graphql', graphqlBookRoutes.ui);
-app.use('/graphql', graphqlBookRoutes.router);
+app.use('/graphql', graphqlBookRoutes.handler);
 
 const server = http.createServer(app);
 const port = 8000;
