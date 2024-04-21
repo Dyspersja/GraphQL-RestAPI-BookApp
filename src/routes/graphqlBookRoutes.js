@@ -6,11 +6,7 @@ const handler = createHandler({ schema });
 
 const ui = (req, res, next) => {
     res.writeHead(200, { "Content-Type": "text/html" });
-    return res.end(
-        ruruHTML({
-            endpoint: "/graphql",
-        }),
-    );
+    return res.end( ruruHTML({ endpoint: "/graphql" }));
 }
 
 module.exports = { handler, ui };
