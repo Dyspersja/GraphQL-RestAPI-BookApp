@@ -19,8 +19,8 @@ app.set('view engine', 'ejs');
 app.use('/', viewBookRoutes);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/api/books', restApiBookRoutes);
-app.use('/graphql/ui', graphqlBookRoutes.ui);
+app.use('/', restApiBookRoutes);
+app.get('/graphql', graphqlBookRoutes.ui);
 app.use('/graphql', graphqlBookRoutes.handler);
 
 const server = http.createServer(app);

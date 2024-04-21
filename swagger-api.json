@@ -32,10 +32,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "title": {
+                "author": {
                   "example": "any"
                 },
-                "author": {
+                "title": {
                   "example": "any"
                 }
               }

@@ -9,6 +9,6 @@ const doc = {
 };
 
 const outputFile = '../swagger-api.json';
-const endpointFiles = ['./app.js'];
+const endpointFiles = ['./routes/restApiBookRoutes'];
 
 swaggerAutogen(outputFile, endpointFiles, doc);
