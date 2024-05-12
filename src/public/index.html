@@ -9,6 +9,18 @@
 <body>
     <div id="booksList"></div>
 
+    <div id="editComponent">
+        <h2>Edit Book</h2>
+        <form id="editBookForm">
+            <input type="hidden" id="editBookId" name="bookId">
+            <label for="editTitle">Title: </label>
+            <input type="text" id="editTitle" name="title"><br>
+            <label for="editAuthor">Author: </label>
+            <input type="text" id="editAuthor" name="author"><br>
+            <button type="submit">Update</button>
+        </form>
+    </div>
+
     <form id="addBookForm">
         <label for="title">Title: </label>
         <input id="title" type="text" name="title" placeholder="Title"> <br>
@@ -86,6 +98,44 @@
                     }
                 });
             });
+
+            $('#booksList').on('click', '.editButton', function () {
+                var bookId = $(this).parent().data('book-id');
+                $.ajax({
+                    url: '/api/books/' + bookId,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#editBookId').val(bookId);
+                        $('#editTitle').val(data.title);
+                        $('#editAuthor').val(data.author);
+                        $('#editComponent').show();
+                    },
+                    error: function (error) {
+                        console.error('Error fetching book details:', error);
+                    }
+                });
+            });
+
+            $('#editBookForm').submit(function (event) {
+                event.preventDefault();
+                var bookId = $('#editBookId').val();
+                var title = $('#editTitle').val();
+                var author = $('#editAuthor').val();
+                $.ajax({
+                    url: '/api/books/' + bookId,
+                    type: 'PUT',
+                    data: { title: title, author: author },
+                    success: function () {
+                        fetchBooks();
+                        $('#editComponent').hide();
+                    },
+                    error: function (error) {
+                        console.error('Error updating book:', error);
+                    }
+                });
+            });
+
+            $('#editComponent').hide();
         });
     </script>
 </body>
