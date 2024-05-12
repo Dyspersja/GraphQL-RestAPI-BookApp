@@ -27,9 +27,9 @@
                 } else {
                     var ul = $('<ul></ul>');
                     books.forEach(function (book) {
-                        var li = $('<li></li>');
-                        var deleteButton = $('<button class="deleteButton" data-book-id="' + book._id + '">Delete</button>');
-                        var editButton = $('<button class="editButton" data-book-id="' + book._id + '">Edit</button>');
+                        var li = $('<li data-book-id="' + book._id + '"></li>');
+                        var deleteButton = $('<button class="deleteButton">Delete</button>');
+                        var editButton = $('<button class="editButton">Edit</button>');
                         li.append(document.createTextNode(book.title + ' - ' + book.author));
                         li.append(deleteButton);
                         li.append(editButton);
@@ -74,7 +74,7 @@
             });
 
             $('#booksList').on('click', '.deleteButton', function () {
-                var bookId = $(this).data('book-id');
+                var bookId = $(this).parent().data('book-id');
                 $.ajax({
                     url: '/api/books/' + bookId,
                     type: 'DELETE',
