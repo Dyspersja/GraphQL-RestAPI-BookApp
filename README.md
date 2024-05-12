@@ -49,7 +49,7 @@ or [http://localhost:8000/graphql](http://localhost:8000/graphql) to open the gr
 ## Features
 Below is a list of the most important features of the application along with a description of how they work:
 
-### Simple EJS interface
+### Simple Single Page interface
 After opening the application in the browser [http://localhost:8000](http://localhost:8000), we are greeted with the following view:
 
 ![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/e8af6c79-9d41-4882-a8cc-83ecdd3aa24a)
@@ -59,13 +59,14 @@ At the top, there is a list of all books in the database, each with two buttons 
 ![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/b8cdc6cb-9348-4871-8b0b-a1a4611c8640)  
 ![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/6b9e15cf-2817-4bcd-90c9-423ccb126c23)
 
-After entering the values for the new book in the fields and clicking the OK button, it will be added to the list.
+After entering values for the new book in the fields and clicking the OK button, it will be added to the list.
 
-![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/59706b17-9a62-4106-a7fc-30af744016e1)
+![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/c004c145-a1eb-44da-8d00-e643fca81b51)
 
-After clicking 'Edit,' user is directed to a new page for editing the selected book.
+After clicking 'Edit,' new modal window for editing selected book appears.
 
-![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/7ea532e2-68dc-423b-90b6-1f33d5e4258d)  
+![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/ae8ad620-2042-4ebc-bfaf-c2e569cca0fc)
+
 ![image](https://github.com/Dyspersja/GraphQL-RestAPI-BookApp/assets/146620220/a3d9fd52-0c39-4241-99db-dc86ed5a18d4)
 
 After entering new data and clicking the OK button, the user is redirected back to the list view of books with the updated information in the edited book.
