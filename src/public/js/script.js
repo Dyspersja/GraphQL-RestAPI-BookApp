@@ -8,11 +8,11 @@ $(document).ready(function () {
             var ul = $('<ul></ul>');
             books.forEach(function (book) {
                 var li = $('<li data-book-id="' + book._id + '"></li>');
-                var deleteButton = $('<button class="deleteButton">Delete</button>');
+                var deleteButton = $('<button class="deleteButton">X</button>');
                 var editButton = $('<button class="editButton">Edit</button>');
-                li.append(document.createTextNode(book.title + ' - ' + book.author));
                 li.append(deleteButton);
                 li.append(editButton);
+                li.append(document.createTextNode(book.title + ' - ' + book.author));
                 ul.append(li);
             });
             booksList.append(ul);
