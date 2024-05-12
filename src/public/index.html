@@ -5,21 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+        }
+    </style>
 </head>
 <body>
     <div id="booksList"></div>
-
-    <div id="editComponent">
-        <h2>Edit Book</h2>
-        <form id="editBookForm">
-            <input type="hidden" id="editBookId" name="bookId">
-            <label for="editTitle">Title: </label>
-            <input type="text" id="editTitle" name="title"><br>
-            <label for="editAuthor">Author: </label>
-            <input type="text" id="editAuthor" name="author"><br>
-            <button type="submit">Update</button>
-        </form>
-    </div>
 
     <form id="addBookForm">
         <label for="title">Title: </label>
@@ -28,6 +36,20 @@
         <input id="author" type="text" name="author" placeholder="Author"> <br>
         <button type="submit">OK</button>
     </form>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Edit Book</h2>
+            <form id="editBookForm">
+                <input type="hidden" id="editBookId" name="bookId">
+                <label for="editTitle">Title: </label>
+                <input type="text" id="editTitle" name="title"><br>
+                <label for="editAuthor">Author: </label>
+                <input type="text" id="editAuthor" name="author"><br>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         $(document).ready(function () {  
@@ -108,7 +130,7 @@
                         $('#editBookId').val(bookId);
                         $('#editTitle').val(data.title);
                         $('#editAuthor').val(data.author);
-                        $('#editComponent').show();
+                        $('#editModal').show();
                     },
                     error: function (error) {
                         console.error('Error fetching book details:', error);
@@ -127,7 +149,7 @@
                     data: { title: title, author: author },
                     success: function () {
                         fetchBooks();
-                        $('#editComponent').hide();
+                        $('#editModal').hide();
                     },
                     error: function (error) {
                         console.error('Error updating book:', error);
@@ -135,7 +157,12 @@
                 });
             });
 
-            $('#editComponent').hide();
+            $(window).click(function(event) {
+                var modal = $('#editModal');
+                if (event.target === modal[0]) {
+                    modal.hide();
+                }
+            });
         });
     </script>
 </body>
