@@ -18,8 +18,74 @@
     </form>
 
     <script>
-        $(document).ready(function () {        
-            console.log("Page loaded successfully");
+        $(document).ready(function () {  
+            function renderBooks(books) {
+                var booksList = $('#booksList');
+                booksList.empty();
+                if (books.length === 0) {
+                    booksList.append('<p>No books</p>');
+                } else {
+                    var ul = $('<ul></ul>');
+                    books.forEach(function (book) {
+                        var li = $('<li></li>');
+                        var deleteButton = $('<button class="deleteButton" data-book-id="' + book._id + '">Delete</button>');
+                        var editButton = $('<button class="editButton" data-book-id="' + book._id + '">Edit</button>');
+                        li.append(document.createTextNode(book.title + ' - ' + book.author));
+                        li.append(deleteButton);
+                        li.append(editButton);
+                        ul.append(li);
+                    });
+                    booksList.append(ul);
+                }
+            }
+            
+            function fetchBooks() {
+                $.ajax({
+                    url: '/api/books',
+                    type: 'GET',
+                    success: function (data) {
+                        renderBooks(data);
+                    },
+                    error: function (error) {
+                        console.error('Error fetching books:', error);
+                    }
+                });
+            }
+
+            fetchBooks();
+
+            $('#addBookForm').submit(function (event) {
+                event.preventDefault();
+                var title = $('#title').val();
+                var author = $('#author').val();
+                $.ajax({
+                    url: '/api/books',
+                    type: 'POST',
+                    data: { title: title, author: author },
+                    success: function () {
+                        fetchBooks();
+                        $('#title').val('');
+                        $('#author').val('');
+                    },
+                    error: function (error) {
+                        console.error('Error adding book:', error);
+                    }
+                });
+            });
+
+            $('#booksList').on('click', '.deleteButton', function () {
+                var bookId = $(this).data('book-id');
+                $.ajax({
+                    url: '/api/books/' + bookId,
+                    type: 'DELETE',
+                    success: function () {
+                        fetchBooks();
+                    },
+                    error: function (error) {
+                        console.error('Error deleting book:', error);
+                    }
+                });
+            });
         });
     </script>
 </body>
