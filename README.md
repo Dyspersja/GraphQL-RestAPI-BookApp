@@ -42,7 +42,7 @@ After launching the Docker container, a MongoDB data directory named *mongo_data
 npm start
 ```
 
-Now that the application is up and running, you can navigate to [http://localhost:8000](http://localhost:8000) to access a very simple interface built using EJS, 
+Now that the application is up and running, you can navigate to [http://localhost:8000](http://localhost:8000) to access a very simple interface built using jQuery, 
 or visit [http://localhost:8000/api-docs](http://localhost:8000/api-docs) to access the Swagger interface for managing the REST API, 
 or [http://localhost:8000/graphql](http://localhost:8000/graphql) to open the graphical interface for GraphQL operations.
 
